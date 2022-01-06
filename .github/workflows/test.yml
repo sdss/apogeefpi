@@ -57,4 +57,4 @@ jobs:
 
       - name: Lint with isort
         run: |
-          poetry run isort -c cherno
+          poetry run isort -c apogeefpi
