@@ -58,8 +58,10 @@ async def open(command: CommandType):
         return
     else:
         if match == "high1":
+            command.actor.shutter_position = "open"
             return command.finish(shutter_position="open")
         else:
+            command.actor.shutter_position = "closed"
             command.warning("Shutter returned unexpected closed status.")
             return command.finish(shutter_position="closed")
 
@@ -74,8 +76,10 @@ async def close(command: CommandType):
         return
     else:
         if match == "low1":
+            command.actor.shutter_position = "closed"
             return command.finish(shutter_position="closed")
         else:
+            command.actor.shutter_position = "open"
             command.warning("Shutter returned unexpected open status.")
             return command.finish(shutter_position="open")
 
@@ -96,6 +100,7 @@ async def _process_shutter_command(command: CommandType, shutter_command: str):
     command.debug(f"APOGEE FPI replied with: {stdout_clean}")
 
     if (match := REGEX.match(stdout)) is None:
+        command.actor.shutter_position = "?"
         command.error("Cannot parse shutter reply.")
         command.fail(shutter_position="?")
         return False
