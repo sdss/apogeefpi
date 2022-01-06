@@ -3,10 +3,8 @@
 ![Versions](https://img.shields.io/badge/python->3.8-blue)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Build](https://img.shields.io/github/workflow/status/sdss/apogeefpi/Test)](https://github.com/sdss/apogeefpi/actions)
-[![codecov](https://codecov.io/gh/sdss/apogeefpi/branch/main/graph/badge.svg)](https://codecov.io/gh/sdss/apogeefpi)
 
-
-SDSS guider actor
+APOGEE FPI shutter control actor.
 
 ## Installation
 
