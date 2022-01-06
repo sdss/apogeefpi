@@ -1,0 +1,79 @@
+[tool.poetry]
+name = "sdss-apogeefpi"
+version = "0.1.0-alpha.0"
+description = "Controls the APOGEE FPI shutter"
+authors = ["José Sánchez-Gallego <gallegoj@uw.edu>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+homepage = "https://github.com/sdss/apogeefpi"
+repository = "https://github.com/sdss/apogeefpi"
+keywords = ["astronomy", "software"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+	"Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+packages = [
+    { include = "apogeefpi" }
+]
+include = ["apogeefpi/etc"]
+
+[tool.poetry.scripts]
+apogeefpi = "apogeefpi.__main__:apogeefpi"
+
+[tool.poetry.dependencies]
+python = "^3.9,<3.11"
+sdsstools = ">=0.1.0"
+sdss-clu = "^1.0.0"
+click-default-group = "^1.2.2"
+
+[tool.poetry.dev-dependencies]
+ipython = ">=8.0.0rc1"
+flake8 = ">=3.7.9"
+doc8 = ">=0.8.0"
+pytest = ">=5.2.2"
+pytest-asyncio = ">=0.10.0"
+pytest-cov = ">=2.8.1"
+pytest-mock = ">=1.13.0"
+pytest-sugar = ">=0.9.2"
+isort = ">=4.3.21"
+codecov = ">=2.0.15"
+coverage = {version = ">=5.0", extras = ["toml"]}
+ipdb = ">=0.12.3"
+black = {version=">=20.8b1", allow-prereleases=true}
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+fast = true
+
+[tool.isort]
+profile = "black"
+sections = ["FUTURE", "STDLIB", "TYPING", "THIRDPARTY", "SDSS", "FIRSTPARTY", "LOCALFOLDER"]
+default_section = "THIRDPARTY"
+known_first_party = "apogeefpi"
+known_typing = ["typing"]
+known_sdss = ["clu", "sdsstools"]
+lines_after_imports = 2
+
+[tool.pytest.ini_options]
+addopts = "--cov apogeefpi --cov-report xml --cov-report html --cov-report term"
+
+[tool.coverage.run]
+branch = true
+include = ["apogeefpi/*"]
+omit = [
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
