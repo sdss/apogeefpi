@@ -8,8 +8,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import pathlib
 import re
+
+import click
 
 import clu
 from clu import Command
@@ -52,12 +55,17 @@ async def status(command: CommandType):
 async def open(command: CommandType):
     """Opens the FPI shutter."""
 
-    match = await _process_shutter_command(command, "fpiopenshutter")
+    results = await asyncio.gather(
+        *[
+            _process_shutter_command(command, "fpiopenshutter"),
+            command.send_command("apogeecal", "shutterOpen"),
+        ]
+    )
 
-    if match is False:
+    if results[0] is False:
         return
     else:
-        if match == "high1":
+        if results[0] == "high1":
             command.actor.shutter_position = "open"
             return command.finish(shutter_position="open")
         else:
@@ -67,10 +75,20 @@ async def open(command: CommandType):
 
 
 @apogeefpi_parser.command()
-async def close(command: CommandType):
+@click.option("--no-calbox", is_flag=True, help="Do not command the calbox shutter.")
+async def close(command: CommandType, no_calbox: bool = False):
     """Closes the FPI shutter."""
 
-    match = await _process_shutter_command(command, "fpicloseshutter")
+    if no_calbox:
+        match = await _process_shutter_command(command, "fpicloseshutter")
+    else:
+        results = await asyncio.gather(
+            *[
+                _process_shutter_command(command, "fpicloseshutter"),
+                command.send_command("apogeecal", "shutterClose"),
+            ]
+        )
+        match = results[0]
 
     if match is False:
         return
