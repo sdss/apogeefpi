@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sdss-apogeefpi"
-version = "1.0.0"
+version = "1.0.1a0"
 description = "Controls the APOGEE FPI shutter"
 authors = ["José Sánchez-Gallego <gallegoj@uw.edu>"]
 license = "BSD-3-Clause"
