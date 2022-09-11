@@ -26,23 +26,23 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
+      # - name: Set up Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.9
 
-      - name: Setup poetry
-        uses: abatilo/actions-poetry@v2.0.0
+      # - name: Setup poetry
+      #   uses: abatilo/actions-poetry@v2.0.0
 
-      - name: Install package
-        run: |
-          poetry install
+      # - name: Install package
+      #   run: |
+      #     poetry install
 
-      - name: Build package
-        run: |
-          poetry build
+      # - name: Build package
+      #   run: |
+      #     poetry build
 
-      - name: Publish to PyPI
-        run: |
-          poetry config pypi-token.pypi ${{ secrets.pypi_password }}
-          poetry publish
+      # - name: Publish to PyPI
+      #   run: |
+      #     poetry config pypi-token.pypi ${{ secrets.pypi_password }}
+      #     poetry publish
